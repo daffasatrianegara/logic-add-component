@@ -38,23 +38,28 @@ function App() {
   console.log(quizzes);
 
   return (
-    <div className="p-20">
-      <p className="font-semibold text-3xl text-center">Test Logic Add Quiz</p>
+    <div className="p-10 md:p-20 max-sm:p-5">
+      <p className="font-semibold text-3xl text-center max-md:text-xl">
+        Test Logic Add Quiz
+      </p>
       <div className="flex justify-end items-center my-3">
         <button
-          className="px-8 py-2 bg-green-600 rounded text-lg font-bold text-white hover:bg-green-500"
+          className="px-8 py-2 bg-green-600 text-lg rounded font-bold text-white max-md:py-1 max-md:px-5 max-md:text-base max-sm:text-sm hover:bg-green-500"
           onClick={handleAddQuiz}
         >
           Tambah Quiz
         </button>
       </div>
-      <p className="text-xl">
+      <p className="text-xl max-md:text-base">
         Jumlah komponen Quiz:{" "}
         <span className="font-semibold">{quizzes.length}</span>
       </p>
       <form className="flex flex-col gap-2 mt-3">
         {quizzes.map((quiz, index) => (
-          <div key={index} className="p-5 bg-slate-200 w-1/2 h-auto rounded">
+          <div
+            key={index}
+            className="p-5 bg-slate-200 w-1/2 h-auto rounded max-md:w-full"
+          >
             <div className="flex gap-3">
               <p className="text-lg font-medium">{quiz.number}</p>
               <input
