@@ -20,6 +20,22 @@ function App() {
     ]);
   };
 
+  const handleDeleteLastQuiz = () => {
+    if (quizzes.length > 1) {
+      const updatedQuizzes = quizzes.slice(0, -1);
+      setQuizzes(updatedQuizzes);
+    }
+  };
+
+  const handleDeleteQuiz = (index) => {
+    const updatedQuizzes = quizzes.filter((_, i) => i !== index);
+    const renumberedQuizzes = updatedQuizzes.map((quiz, i) => ({
+      ...quiz,
+      number: i + 1,
+    }));
+    setQuizzes(renumberedQuizzes);
+  };
+
   const handleQuizChange = (index, field, value) => {
     const updatedQuizzes = quizzes.map((quiz, i) =>
       i === index ? { ...quiz, [field]: value } : quiz
@@ -42,7 +58,14 @@ function App() {
       <p className="font-semibold text-3xl text-center max-md:text-xl">
         Test Logic Add Quiz
       </p>
-      <div className="flex justify-end items-center my-3">
+      <div className="flex justify-end items-center my-3 gap-3">
+        <button
+          className="px-8 py-2 bg-red-600 text-lg rounded font-bold text-white max-md:py-1 max-md:px-5 max-md:text-base max-sm:text-sm hover:bg-red-500 disabled:bg-red-300 disabled:cursor-not-allowed"
+          onClick={handleDeleteLastQuiz}
+          disabled={quizzes.length === 1}
+        >
+          Delete Quiz
+        </button>
         <button
           className="px-8 py-2 bg-green-600 text-lg rounded font-bold text-white max-md:py-1 max-md:px-5 max-md:text-base max-sm:text-sm hover:bg-green-500"
           onClick={handleAddQuiz}
@@ -60,6 +83,18 @@ function App() {
             key={index}
             className="p-5 bg-slate-200 w-1/2 h-auto rounded max-md:w-full"
           >
+            <div className="flex justify-end items-center mb-5">
+              <button
+                className="py-1 px-5 text-white font-semibold text-sm rounded bg-red-600 hover:bg-red-400 disabled:bg-red-300 disabled:cursor-not-allowed"
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleDeleteQuiz(index);
+                }}
+                disabled={quizzes.length === 1}
+              >
+                Delete
+              </button>
+            </div>
             <div className="flex gap-3">
               <p className="text-lg font-medium">{quiz.number}</p>
               <input
